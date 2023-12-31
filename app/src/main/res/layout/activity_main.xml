@@ -24,7 +24,6 @@
             android:id="@+id/station"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            style="@style/CustomButton1"
             android:layout_weight="1"
             android:text="Station" />
 
@@ -34,7 +33,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:onClick="onClickCollege"
-            style="@style/CustomButton2"
             android:text="College" />
 
         <Button
