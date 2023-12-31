@@ -6,12 +6,10 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
-import androidx.appcompat.content.res.AppCompatResources
 
 const val KEY_IMAGE = "image_key"
 
 class MainActivity : AppCompatActivity() {
-
     override fun onStop() {
         super.onStop()
         Log.i("LIFECYCLE", "stopped")
@@ -35,20 +33,17 @@ class MainActivity : AppCompatActivity() {
             image.apply {
                 when (contentDescription) {
                     "station" -> setImageDrawable(
-                        AppCompatResources.getDrawable(
-                            applicationContext,
+                        getDrawable(
                             R.drawable.station
                         )
                     )
                     "college" -> setImageDrawable(
-                        AppCompatResources.getDrawable(
-                            applicationContext,
+                        getDrawable(
                             R.drawable.college
                         )
                     )
                     "theatre" -> setImageDrawable(
-                        AppCompatResources.getDrawable(
-                            applicationContext,
+                        getDrawable(
                             R.drawable.theatre
                         )
                     )
@@ -61,13 +56,13 @@ class MainActivity : AppCompatActivity() {
         val station = findViewById<Button>(R.id.station)
         station.setOnClickListener {
             image.setImageDrawable(
-                AppCompatResources.getDrawable(applicationContext, R.drawable.station))
+                getDrawable(R.drawable.station))
             image.contentDescription = "station"
         }
 
         val onClickTheatre = View.OnClickListener {
             image.setImageDrawable(
-                AppCompatResources.getDrawable(applicationContext, R.drawable.theatre))
+                getDrawable(R.drawable.theatre))
             image.contentDescription = "theatre"
         }
 
@@ -94,8 +89,7 @@ class MainActivity : AppCompatActivity() {
     fun onClickCollege(v: View) {
         val image = findViewById<ImageView>(R.id.imageView)
         image.setImageDrawable(
-            AppCompatResources.getDrawable(applicationContext, R.drawable.college))
+            getDrawable(R.drawable.college))
         image.contentDescription = "college"
     }
-
 }
