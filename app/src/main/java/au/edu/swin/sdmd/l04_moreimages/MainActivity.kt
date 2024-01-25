@@ -1,7 +1,9 @@
 package au.edu.swin.sdmd.l04_moreimages
 
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -10,11 +12,6 @@ import android.widget.ImageView
 const val KEY_IMAGE = "image_key"
 
 class MainActivity : AppCompatActivity() {
-    override fun onStop() {
-        super.onStop()
-        Log.i("LIFECYCLE", "stopped")
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -49,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                     )
                 }
             }
-            Log.i("LIFECYCLE", "onRestoreInstanceState")
+            Log.i("LIFECYCLE", "onCreate (saved instance restored)")
         }
 
 
@@ -70,26 +67,74 @@ class MainActivity : AppCompatActivity() {
         theatre.setOnClickListener(onClickTheatre)
     }
 
-
-    /**
-     * This is needed to save state. The variables to save need to be
-     * added to a Bundle with a key, in this case "image".
-     */
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-
-        val image = findViewById<ImageView>(R.id.imageView)
-        outState.putString(KEY_IMAGE, image.contentDescription.toString())
-
-        Log.i("LIFECYCLE", "onSaveInstanceState")
-    }
-
-
-
     fun onClickCollege(v: View) {
         val image = findViewById<ImageView>(R.id.imageView)
         image.setImageDrawable(
             getDrawable(R.drawable.college))
         image.contentDescription = "college"
     }
+
+    /**
+     * This is needed to save state. The variables to save need to be
+     * added to a Bundle with a key, in this case "image".
+     */
+    override fun onSaveInstanceState(outState: Bundle) {
+        val image = findViewById<ImageView>(R.id.imageView)
+        outState.putString(KEY_IMAGE, image.contentDescription.toString())
+
+        // call super AFTER
+        super.onSaveInstanceState(outState)
+
+        Log.i("LIFECYCLE", "onSaveInstanceState")
+    }
+
+    // These override functions are ONLY for testing to observe
+    // lifecycle functions
+    // In practice, ONLY override the functions that you need!
+    override fun onStart() {
+        super.onStart()
+        Log.i("LIFECYCLE", "onStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.i("LIFECYCLE", "onResume")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.i("LIFECYCLE", "onRestart")
+    }
+
+    override fun onRestoreInstanceState(
+        savedInstanceState: Bundle?,
+        persistentState: PersistableBundle?
+    ) {
+        // call super BEFORE
+        super.onRestoreInstanceState(savedInstanceState, persistentState)
+        Log.i("LIFECYCLE", "onRestoreInstanceState")
+    }
+
+//    override fun onConfigurationChanged(newConfig: Configuration) {
+//        // call super BEFORE
+//        super.onConfigurationChanged(newConfig)
+//        Log.i("LIFECYCLE", "onConfigurationChanged")
+//    }
+
+    // For these functions: call the super function last
+    override fun onPause() {
+        Log.i("LIFECYCLE", "onPause")
+        super.onPause()
+    }
+
+    override fun onStop() {
+        Log.i("LIFECYCLE", "onStop")
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        Log.i("LIFECYCLE", "onDestroy")
+        super.onDestroy()
+    }
+
 }
